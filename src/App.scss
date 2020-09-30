@@ -1,11 +1,26 @@
 .weather1 {
   margin: 0 auto;
   margin-top: 30px;
-  width: 80%;
+  width: 50%;
+  height: 320px;
+  background: wheat;
+  box-shadow: 5px 1px 1px tan;
 
-  background: red;
+  border: 2px solid tan;
+}
+.weather__name {
+  font-weight: 900;
+  color: #af8b90;
+  border-bottom: 1px solid black;
+}
+.input {
+  margin: 0 auto;
+  width: 800px;
 }
 
+.mt20 {
+  margin-top: 20px;
+}
 .preloader {
   margin: 20% 47%;
 }

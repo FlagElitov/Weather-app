@@ -6,24 +6,34 @@ import Weather from "./components/Weather";
 import Input from "./components/Input";
 
 const App = () => {
-  const [weather, setWeather] = React.useState();
+  const [name, setName] = React.useState("");
   const [city, setCity] = React.useState("London");
   const [inputText, setInputText] = React.useState("");
+  const [weather, setWeather] = React.useState([]);
+  const [speed, setSpeed] = React.useState();
+  const [temp, setTemp] = React.useState();
 
   React.useEffect(() => {
     axios
       .get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=12cb915946025ac4aef542b20c06822d`
+        `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=12cb915946025ac4aef542b20c06822d&lang=ru`
       )
       .then((response) => {
         if (response.status === 200) {
-          setWeather(response.data);
-          console.log(response.data);
+          const data = response.data;
+          // setWeather(response.data.weather);
+          setName(data.name);
+          setWeather(data.weather);
+          setSpeed(data.wind.speed);
+          setTemp(data.main.temp - 273, 15);
+          console.log(data);
+        } else {
+          alert(
+            "Вы не правильно ввели город . Вводите город на английском языке"
+          );
         }
       });
   }, [city]);
-
-  console.log(weather);
 
   const inputChange = (event) => {
     setInputText(event.target.value);
@@ -45,7 +55,7 @@ const App = () => {
           inputChange={inputChange}
           onKeyHandle={onKeyHandle}
         />
-        <Weather weather={weather} />
+        <Weather name={name} weather={weather} speed={speed} temp={temp} />
       </div>
     </div>
   );
