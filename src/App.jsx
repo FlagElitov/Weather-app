@@ -12,6 +12,9 @@ const App = () => {
   const [weather, setWeather] = React.useState([]);
   const [speed, setSpeed] = React.useState();
   const [temp, setTemp] = React.useState();
+  const [humidity, setHumidity] = React.useState();
+  const [coulds, setCoulds] = React.useState();
+  const [country, setCountry] = React.useState([]);
 
   React.useEffect(() => {
     axios
@@ -26,6 +29,10 @@ const App = () => {
           setWeather(data.weather);
           setSpeed(data.wind.speed);
           setTemp(data.main.temp - 273, 15);
+          setHumidity(data.main.humidity);
+          setCoulds(data.clouds.all);
+          setCountry(data.sys.country);
+
           console.log(data);
         } else {
           alert(
@@ -55,7 +62,15 @@ const App = () => {
           inputChange={inputChange}
           onKeyHandle={onKeyHandle}
         />
-        <Weather name={name} weather={weather} speed={speed} temp={temp} />
+        <Weather
+          name={name}
+          weather={weather}
+          speed={speed}
+          temp={temp}
+          humidity={humidity}
+          coulds={coulds}
+          country={country}
+        />
       </div>
     </div>
   );
