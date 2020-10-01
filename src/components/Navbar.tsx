@@ -3,8 +3,8 @@ import React from "react";
 const Navbar = () => {
   return (
     <nav>
-      <div class="nav-wrapper blue darken-3">
-        <div class="brand-logo center">
+      <div className="nav-wrapper blue darken-3">
+        <div className="brand-logo center">
           <span className="logo">Weather + API</span>
         </div>
       </div>

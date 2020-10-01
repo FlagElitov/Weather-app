@@ -5,16 +5,16 @@ import axios from "axios";
 import Weather from "./components/Weather";
 import Input from "./components/Input";
 
-const App = () => {
-  const [name, setName] = React.useState("");
-  const [city, setCity] = React.useState("London");
-  const [inputText, setInputText] = React.useState("");
-  const [weather, setWeather] = React.useState([]);
-  const [speed, setSpeed] = React.useState();
-  const [temp, setTemp] = React.useState();
-  const [humidity, setHumidity] = React.useState();
-  const [coulds, setCoulds] = React.useState();
-  const [country, setCountry] = React.useState([]);
+const App: React.FC = () => {
+  const [name, setName] = React.useState<string>("");
+  const [city, setCity] = React.useState<string>("London");
+  const [inputText, setInputText] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const [speed, setSpeed] = React.useState<number>(0);
+  const [temp, setTemp] = React.useState<number>(0);
+  const [humidity, setHumidity] = React.useState<number>(0);
+  const [coulds, setCoulds] = React.useState<number>(0);
+  const [country, setCountry] = React.useState<string>("");
 
   React.useEffect(() => {
     axios
@@ -24,11 +24,10 @@ const App = () => {
       .then((response) => {
         if (response.status === 200) {
           const data = response.data;
-          // setWeather(response.data.weather);
           setName(data.name);
-          setWeather(data.weather);
+          setDescription(data.weather);
           setSpeed(data.wind.speed);
-          setTemp(data.main.temp - 273, 15);
+          setTemp(data.main.temp - 273);
           setHumidity(data.main.humidity);
           setCoulds(data.clouds.all);
           setCountry(data.sys.country);
@@ -42,11 +41,11 @@ const App = () => {
       });
   }, [city]);
 
-  const inputChange = (event) => {
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
-  const onKeyHandle = (event) => {
+  const onKeyHandle = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       setCity(inputText);
       setInputText("");
@@ -64,7 +63,7 @@ const App = () => {
         />
         <Weather
           name={name}
-          weather={weather}
+          description={description}
           speed={speed}
           temp={temp}
           humidity={humidity}
