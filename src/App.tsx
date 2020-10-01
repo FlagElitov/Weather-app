@@ -9,12 +9,13 @@ const App: React.FC = () => {
   const [name, setName] = React.useState<string>("");
   const [city, setCity] = React.useState<string>("London");
   const [inputText, setInputText] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
+  const [descriptio, setDescription] = React.useState<string>("");
   const [speed, setSpeed] = React.useState<number>(0);
   const [temp, setTemp] = React.useState<number>(0);
   const [humidity, setHumidity] = React.useState<number>(0);
   const [coulds, setCoulds] = React.useState<number>(0);
   const [country, setCountry] = React.useState<string>("");
+  const [icon, setIcon] = React.useState<string>("");
 
   React.useEffect(() => {
     axios
@@ -25,18 +26,13 @@ const App: React.FC = () => {
         if (response.status === 200) {
           const data = response.data;
           setName(data.name);
-          setDescription(data.weather);
+          setDescription(data.weather[0].description);
           setSpeed(data.wind.speed);
-          setTemp(data.main.temp - 273);
+          setTemp(data.main.temp - 273.15);
           setHumidity(data.main.humidity);
           setCoulds(data.clouds.all);
           setCountry(data.sys.country);
-
-          console.log(data);
-        } else {
-          alert(
-            "Вы не правильно ввели город . Вводите город на английском языке"
-          );
+          setIcon(data.weather[0].icon);
         }
       });
   }, [city]);
@@ -51,7 +47,6 @@ const App: React.FC = () => {
       setInputText("");
     }
   };
-
   return (
     <div className="App">
       <Navbar />
@@ -62,8 +57,9 @@ const App: React.FC = () => {
           onKeyHandle={onKeyHandle}
         />
         <Weather
+          icon={icon}
           name={name}
-          description={description}
+          descriptio={descriptio}
           speed={speed}
           temp={temp}
           humidity={humidity}
