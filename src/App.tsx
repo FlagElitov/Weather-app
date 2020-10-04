@@ -7,7 +7,7 @@ import Input from "./components/Input";
 
 const App: React.FC = () => {
   const [name, setName] = React.useState<string>("");
-  const [city, setCity] = React.useState<string>("London");
+  const [city, setCity] = React.useState<string>("Киев");
   const [inputText, setInputText] = React.useState<string>("");
   const [descriptio, setDescription] = React.useState<string>("");
   const [speed, setSpeed] = React.useState<number>(0);
